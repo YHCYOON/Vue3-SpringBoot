@@ -8,11 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "items")
 public class Item {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동증가값
     private int id;
-
     @Column(length = 50, nullable = false)
     private String name;
 
