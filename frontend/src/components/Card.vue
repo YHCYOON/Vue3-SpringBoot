@@ -33,16 +33,11 @@ export default {
     item: Object
   },
   setup() {
-    axios.get("/api/cart/items").then(({data}) => {
-      console.log(data);
-    })
-
-    const addToCart = (itemId) =>{
-      axios.post(`/api/cart/items/${itemId}`).then(() =>{
+    const addToCart = (itemId) => {
+      axios.post(`/api/cart/items/${itemId}`).then(() => {
         console.log('success')
       })
     };
-
     return {lib, addToCart}
   }
 }
