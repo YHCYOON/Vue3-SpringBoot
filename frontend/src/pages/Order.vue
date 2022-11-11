@@ -97,9 +97,11 @@ export default {
     };
 
     const submit = () => {
-      axios.post("/api/orders", state.form).then(() => {
-        console.log('success');
-      })
+      const args = JSON.parse(JSON.stringify(state.form));
+      args.items = JSON.stringify(state.items);
+          axios.post("/api/orders", args).then(() => {
+            console.log('success');
+          })
     };
 
     const computedPrice = computed(() => {
