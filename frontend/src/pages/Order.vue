@@ -75,6 +75,7 @@
 import {computed, reactive} from "vue";
 import axios from "axios";
 import lib from "@/scripts/lib";
+import router from "@/scripts/router";
 
 export default {
   setup() {
@@ -84,7 +85,7 @@ export default {
         name: "",
         address: "",
         payment: "",
-        card_number: "",
+        cardNumber: "",
         items: ""
       }
     })
@@ -99,9 +100,11 @@ export default {
     const submit = () => {
       const args = JSON.parse(JSON.stringify(state.form));
       args.items = JSON.stringify(state.items);
-          axios.post("/api/orders", args).then(() => {
-            console.log('success');
-          })
+
+      axios.post("/api/orders", args).then(() => {
+        alert('주문 완료하였습니다');
+        router.push({path: "/orders"})
+      })
     };
 
     const computedPrice = computed(() => {

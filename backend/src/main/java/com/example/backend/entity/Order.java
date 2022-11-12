@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Data
 @Table(name = "orders")
 public class Order {
 
@@ -15,8 +17,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동증가값
     private int id;
 
-    @Column
-    private int member_id;
+    @Column(name = "member_id")
+    private int memberId;
 
     @Column(length = 50, nullable = false)
     private String name;

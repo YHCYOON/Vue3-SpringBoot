@@ -31,7 +31,7 @@ public class AccountController {
                                 HttpServletResponse res) {
         Member member = memberRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
 
-        if(member != null) {
+        if (member != null) {
             int id = member.getId();
             String token = jwtService.getToken("id", id);
 
@@ -45,11 +45,21 @@ public class AccountController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/api/account/logout")
+    public ResponseEntity logout(HttpServletResponse res) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        res.addCookie(cookie);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/api/account/check")
-    public ResponseEntity check(@CookieValue(value = "token", required = false) String token){
+    public ResponseEntity check(@CookieValue(value = "token", required = false) String token) {
         Claims claims = jwtService.getClaims(token);
 
-        if (claims != null){
+        if (claims != null) {
             int id = Integer.parseInt(claims.get("id").toString());
             return new ResponseEntity<>(id, HttpStatus.OK);
 
